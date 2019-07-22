@@ -1,32 +1,34 @@
-import React, { Component } from "react";
+import React from "react";
 
 //HIGHER-ORDER COMPONENT
 const withMouseActions = (WrappedComponent, color) => {
-  class NewComponent extends Component {
+  class NewComponent extends React.Component {
     constructor(props) {
       super(props);
-      this.state = { color: color };
+      this.state = {
+        color: color
+      };
     }
 
-    onMouseEnter = () => {
+    changeColor = () => {
       this.setState({ color: "pink" });
     };
 
-    onMouseLeave = () => {
+    restoreColor = () => {
       this.setState({ color: color });
     };
+
     render() {
       return (
         <WrappedComponent
           color={this.state.color}
-          onMouseEnter={this.onMouseEnter}
-          onMouseLeave={this.onMouseLeave}
+          changeColor={this.changeColor}
+          restoreColor={this.restoreColor}
           {...this.props}
         />
       );
     }
   }
-
   return NewComponent;
 };
 
